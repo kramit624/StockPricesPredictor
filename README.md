@@ -21,11 +21,11 @@ The Stock Price Prediction Application is a web-based tool that allows users to 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/stock-price-prediction.git
+   git clone https://github.com/kramit624/StockPricesPredictor.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd stock-price-prediction
+   cd StockPricesPredictor
    ```
 3. Create a virtual environment:
    ```bash
