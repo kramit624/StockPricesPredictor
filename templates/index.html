@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            color: #27ae60;
+        }
+
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-top: 20px;
+            border: 2px solid #2c3e50;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        input[type="text"]:focus {
+            border-color: #27ae60;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        img {
+            display: block;
+            margin-top: 20px;
+            max-width: 100%;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <script>
+        function predictStock() {
+            const ticker = document.getElementById('ticker').value;
+            fetch(`/predict/${ticker}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error(data.error);
+                        document.getElementById('price').innerText = 'Error fetching price';
+                    } else {
+                        document.getElementById('price').innerText = `Real-time Price: ${data.predicted_price} USD`;
+                        document.getElementById('stock-image').src = data.image;  // Update image source
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('price').innerText = 'Error fetching price';
+                });
+        }
+    </script>
+</head>
+<body>
+    <h1>Stock Price Prediction</h1>
+    <input type="text" id="ticker" placeholder="Enter Stock Ticker (e.g., AAPL)">
+    <button onclick="predictStock()">Predict</button>
+    <h2 id="price">Real-time Price: </h2>
+    <img id="stock-image" src="" alt="Prediction Graph" style="display:block; margin-top:20px; max-width:100%;">
+</body>
+</html>
